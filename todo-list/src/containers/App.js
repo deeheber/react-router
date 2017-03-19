@@ -14,10 +14,15 @@ class App extends Component {
     ]
   };
 
+  addTask = name => {
+    this.state.tasks.push({ name });
+    this.setState(this.state);
+  }
+
   render() {
     return (
       <div>
-        <AddTaskForm />
+        <AddTaskForm addTask={ this.addTask }/>
         <List header="To Do" data={this.state.tasks} />
       </div>
     );

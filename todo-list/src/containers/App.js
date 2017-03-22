@@ -19,6 +19,11 @@ class App extends Component {
     this.setState(this.state);
   }
 
+  removeTask = index => {
+    this.state.tasks.splice(index, 1);
+    this.setState(this.state);
+  }
+
   render() {
     return (
       <div>
@@ -31,6 +36,7 @@ class App extends Component {
                 <Task 
                   name={task.name}
                   key={task.name}
+                  removeTask={() => this.removeTask(index) }
                 />
               );
             })

@@ -5,13 +5,14 @@ const Task = props => {
     <li>
       <input type="checkbox"/>
         {props.name}
-      <button>X</button>
+      <button onClick={props.removeTask}>X</button>
     </li>
   );
 };
 
 Task.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  removeTask: PropTypes.func.isRequired
 };
 
 export default Task;

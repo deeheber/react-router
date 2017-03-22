@@ -4,6 +4,8 @@ import AddTaskForm from '../components/AddTaskForm';
 import Task from '../components/Task';
 
 class App extends Component {
+  // TODO: move state to a redux store
+  // Optional TODO: seperate list/views for complete/incomplete/all tasks
   state = {
     tasks: [
       { name: 'Walk Dog', complete: false},
@@ -19,7 +21,10 @@ class App extends Component {
     this.setState(this.state);
   }
 
+  // TODO: Update task
+
   removeTask = index => {
+    // TODO: Delete confirmation if task is not marked complete
     this.state.tasks.splice(index, 1);
     this.setState(this.state);
   }
@@ -29,6 +34,7 @@ class App extends Component {
     this.setState(this.state);
   }
 
+  // TODO: generate unique key for each task uuid npm package
   render() {
     return (
       <div>

@@ -24,3 +24,8 @@ ul {
 li input[type=checkbox] {
   margin-right: 3%;
 }
+
+.complete {
+  color: gray;
+  text-decoration: line-through;
+}

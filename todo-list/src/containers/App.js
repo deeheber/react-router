@@ -6,21 +6,26 @@ import Task from '../components/Task';
 class App extends Component {
   state = {
     tasks: [
-      { name: 'Walk Dog' },
-      { name: 'Buy Groceries' },
-      { name: 'Pay Bills' },
-      { name: 'Call Parents' },
-      { name: 'Mail Letter' }
+      { name: 'Walk Dog', complete: false},
+      { name: 'Buy Groceries', complete: true },
+      { name: 'Pay Bills', complete: true },
+      { name: 'Call Parents', complete: false },
+      { name: 'Mail Letter', complete: false }
     ]
   };
 
   addTask = name => {
-    this.state.tasks.push({ name });
+    this.state.tasks.push({ name: name, complete: false });
     this.setState(this.state);
   }
 
   removeTask = index => {
     this.state.tasks.splice(index, 1);
+    this.setState(this.state);
+  }
+
+  toggleCompletion = index => {
+    this.state.tasks[index].complete = !this.state.tasks[index].complete;
     this.setState(this.state);
   }
 
@@ -36,7 +41,9 @@ class App extends Component {
                 <Task 
                   name={task.name}
                   key={task.name}
-                  removeTask={() => this.removeTask(index) }
+                  complete={task.complete}
+                  removeTask={() => this.removeTask(index)}
+                  toggleCompletion={() => this.toggleCompletion(index)}
                 />
               );
             })

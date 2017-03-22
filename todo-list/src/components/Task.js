@@ -1,9 +1,16 @@
 import React, { PropTypes } from 'react';
 
 const Task = props => {
+  let isComplete;
+  props.complete ? isComplete = 'complete' : isComplete = ''
+
   return(
-    <li>
-      <input type="checkbox"/>
+    <li className={isComplete}>
+      <input 
+        type="checkbox" 
+        checked={props.complete}
+        onChange={props.toggleCompletion}
+      />
         {props.name}
       <button onClick={props.removeTask}>X</button>
     </li>
@@ -12,7 +19,9 @@ const Task = props => {
 
 Task.propTypes = {
   name: PropTypes.string.isRequired,
-  removeTask: PropTypes.func.isRequired
+  complete: PropTypes.bool.isRequired,
+  removeTask: PropTypes.func.isRequired,
+  toggleCompletion: PropTypes.func.isRequired
 };
 
 export default Task;

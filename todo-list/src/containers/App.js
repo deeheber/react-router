@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import AddTaskForm from '../components/AddTaskForm';
-import List from '../components/List';
+import Task from '../components/Task';
 
 class App extends Component {
   state = {
@@ -22,8 +22,22 @@ class App extends Component {
   render() {
     return (
       <div>
+        <div>
+          <h1>To Do List</h1>
+          <ul>
+          {
+            this.state.tasks.map((task, index)=> {
+              return (
+                <Task 
+                  name={task.name}
+                  key={task.name}
+                />
+              );
+            })
+          }
+          </ul>
+        </div>
         <AddTaskForm addTask={ this.addTask }/>
-        <List header="To Do" data={this.state.tasks} />
       </div>
     );
   }

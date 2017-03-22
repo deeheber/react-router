@@ -23,7 +23,6 @@ import React, { Component, PropTypes } from 'react';
     render() {
       return (
         <div>
-          <h1>Add item</h1>
           <form onSubmit={this.onSubmit}>
             <input 
               type="text"

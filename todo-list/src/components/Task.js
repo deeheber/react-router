@@ -2,7 +2,11 @@ import React, { PropTypes } from 'react';
 
 const Task = props => {
   return(
-    <li><input type="checkbox"/>{props.name}</li>
+    <li>
+      <input type="checkbox"/>
+        {props.name}
+      <button>X</button>
+    </li>
   );
 };
 

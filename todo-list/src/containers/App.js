@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 
 import AddTaskForm from '../components/AddTaskForm';
 import Task from '../components/Task';
@@ -34,7 +35,6 @@ class App extends Component {
     this.setState(this.state);
   }
 
-  // TODO: generate unique key for each task uuid npm package
   render() {
     return (
       <div>
@@ -43,10 +43,11 @@ class App extends Component {
           <ul>
           {
             this.state.tasks.map((task, index)=> {
+              const uniqueKey = uuid.v4();
               return (
                 <Task 
                   name={task.name}
-                  key={task.name}
+                  key={uniqueKey}
                   complete={task.complete}
                   removeTask={() => this.removeTask(index)}
                   toggleCompletion={() => this.toggleCompletion(index)}

@@ -38,8 +38,22 @@ export default function Task(state=initialState, action) {
     }
 
     case TaskActionTypes.TOGGLE_COMPLETE: {
-      // TODO complete this reducer
-      // copy tasks array and change the complete value on the selected index
+      const selectedTask = state.tasks[action.index];
+      const updatedTask = Object.assign({}, selectedTask, {
+        complete: !selectedTask.complete
+      });
+      const toggleTasklist = [
+        ...state.tasks.slice(0, action.index),
+        updatedTask,
+        ...state.tasks.slice(action.index + 1)
+      ];
+      return {
+        ...state,
+        tasks: toggleTasklist
+      };
     }
+
+    default:
+      return state;
   }
 }

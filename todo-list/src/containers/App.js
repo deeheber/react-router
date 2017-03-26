@@ -24,7 +24,7 @@ class App extends Component {
       <div>
         <div>
           <h1>To Do List</h1>
-          <ul>
+          <ul className="list-group">
           {
             tasks.map((task, index)=> {
               const uniqueKey = uuid.v4();

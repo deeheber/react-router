@@ -22,15 +22,16 @@ import React, { Component, PropTypes } from 'react';
 
     render() {
       return (
-        <div>
-          <form onSubmit={this.onSubmit}>
-            <input 
-              type="text"
-              placeholder="Task Name" 
-              value={this.state.name}
-              onChange={this.updateTaskName}
-            />
-            <input type="submit" value="Add" />
+        <div className="container-fluid">
+          <form onSubmit={this.onSubmit} className="row">
+              <input 
+                className="col-md-10"
+                type="text"
+                placeholder="Task Name" 
+                value={this.state.name}
+                onChange={this.updateTaskName}
+              />
+              <input className="btn btn-success btn-md pull-right" type="submit" value="Add" />
           </form>
         </div>
       );

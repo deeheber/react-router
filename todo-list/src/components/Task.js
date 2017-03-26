@@ -1,18 +1,19 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 const Task = props => {
   let isComplete;
   props.complete ? isComplete = 'complete' : isComplete = ''
 
   return(
-    <li className={isComplete}>
+    <li className="list-group-item">
       <input 
         type="checkbox" 
         checked={props.complete}
         onChange={props.toggleCompletion}
       />
-        {props.name}
-      <button onClick={props.removeTask}>X</button>
+      <span className={isComplete}>{props.name}</span>
+      <button className="btn btn-danger pull-right btn-xs" onClick={props.removeTask}>X</button>
     </li>
   );
 };

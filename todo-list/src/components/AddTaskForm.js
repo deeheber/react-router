@@ -17,6 +17,10 @@ import PropTypes from 'prop-types';
 
     onSubmit = e => {
       if(e) e.preventDefault();
+      if(this.state.name.trim() === '') {
+        alert('Don\'t forget to type in a task name.');
+        return;
+      }
       this.props.addTask(this.state.name);
       this.setState({ name: '' });
     }

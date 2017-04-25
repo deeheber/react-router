@@ -13,6 +13,7 @@ const Task = props => {
         onChange={props.toggleCompletion}
       />
       <span className={isComplete}>{props.name}</span>
+      {/*TODO: delete confirmation if a task is not marked completed */}
       <button className="btn btn-danger pull-right btn-xs" onClick={props.removeTask}>X</button>
     </li>
   );

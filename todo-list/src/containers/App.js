@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import uuid from 'uuid';
 import * as TaskActionCreators from '../actions/task';
 
+import TaskFilter from '../components/TaskFilter';
 import AddTaskForm from '../components/AddTaskForm';
 import Task from '../components/Task';
 
@@ -21,6 +22,7 @@ class App extends Component {
       <div>
         <div>
           <h1>To Do List</h1>
+          <TaskFilter />
           <ul className="list-group">
           {
             tasks.map((task, index)=> {

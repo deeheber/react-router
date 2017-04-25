@@ -14,6 +14,7 @@ export default function Task(state=initialState, action) {
   switch(action.type) {
 
     case TaskActionTypes.ADD_TASK: {
+      // TODO: don't allow the user to add empty tasks
       const addTaskList = [
         ...state.tasks,
         {

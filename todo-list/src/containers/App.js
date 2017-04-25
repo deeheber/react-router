@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as TaskActionCreators from '../actions/task';
 import uuid from 'uuid';
+import * as TaskActionCreators from '../actions/task';
 
 import AddTaskForm from '../components/AddTaskForm';
 import Task from '../components/Task';
@@ -15,10 +15,7 @@ class App extends Component {
   // TODO seperate lists/views for complete/incomplete/all
   
   render() {
-    const { dispatch, tasks } = this.props;
-    const addTask = bindActionCreators(TaskActionCreators.addTask, dispatch);
-    const removeTask = bindActionCreators(TaskActionCreators.removeTask, dispatch);
-    const toggleCompletion = bindActionCreators(TaskActionCreators.toggleComplete, dispatch);
+    const { addTask, removeTask, tasks, toggleCompletion } = this.props;
 
     return (
       <div>
@@ -53,4 +50,16 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  addTask: name => {
+    dispatch(TaskActionCreators.addTask(name));
+  },
+  removeTask: index => {
+    dispatch(TaskActionCreators.removeTask(index));
+  },
+  toggleCompletion: index => {
+    dispatch(TaskActionCreators.toggleComplete(index));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

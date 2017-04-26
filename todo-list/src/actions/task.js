@@ -20,3 +20,10 @@ export const toggleComplete = index => {
     index
   }
 }
+
+export const filterTasks = filter => {
+  return {
+    type: TaskActionTypes.FILTER_TASKS,
+    filter
+  }
+}

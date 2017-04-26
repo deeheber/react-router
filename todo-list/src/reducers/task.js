@@ -53,6 +53,11 @@ export default function Task(state=initialState, action) {
       };
     }
 
+    case TaskActionTypes.FILTER_TASKS: {
+      console.log(action.filter);
+      return state;
+    }
+
     default:
       return state;
   }

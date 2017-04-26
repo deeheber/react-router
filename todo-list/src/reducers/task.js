@@ -7,7 +7,8 @@ const initialState = {
     { name: 'Pay Bills', complete: true },
     { name: 'Call Parents', complete: false },
     { name: 'Mail Letter', complete: false }
-  ]
+  ],
+  selectedFilter: 'All'
 }
 
 export default function Task(state=initialState, action) {
@@ -54,8 +55,11 @@ export default function Task(state=initialState, action) {
     }
 
     case TaskActionTypes.FILTER_TASKS: {
-      console.log(action.filter);
-      return state;
+      const selectedFilter = action.filter;
+      return {
+        ...state,
+        selectedFilter
+      }
     }
 
     default:

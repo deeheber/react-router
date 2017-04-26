@@ -16,13 +16,13 @@ class App extends Component {
   // TODO seperate lists/views for complete/incomplete/all
   
   render() {
-    const { addTask, filterTasks, removeTask, tasks, toggleCompletion } = this.props;
+    const { addTask, filterTasks, removeTask, selectedFilter, tasks, toggleCompletion } = this.props;
 
     return (
       <div>
         <div>
           <h1>To Do List</h1>
-          <TaskFilter filterTasks={filterTasks}/>
+          <TaskFilter filterTasks={filterTasks} selectedFilter={selectedFilter}/>
           <ul className="list-group">
           {
             tasks.map((task, index)=> {
@@ -46,11 +46,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
-    tasks: state.tasks
-  }
-);
+const mapStateToProps = state => ({
+  tasks: state.tasks,
+  selectedFilter: state.selectedFilter
+});
 
 const mapDispatchToProps = dispatch => ({
   addTask: name => {

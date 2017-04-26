@@ -24,6 +24,7 @@ class App extends Component {
           <h1>To Do List</h1>
           <TaskFilter filterTasks={filterTasks} selectedFilter={selectedFilter}/>
           <ul className="list-group">
+        {/*TODO: Assign uniqueKey in the reducer filter through the tasks here based off of the selected filter*/}
           {
             tasks.map((task, index)=> {
               const uniqueKey = uuid.v4();

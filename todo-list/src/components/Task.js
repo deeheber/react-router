@@ -41,7 +41,6 @@ class Task extends Component {
         />
         <span className={isComplete}>{this.props.name}</span>
         <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>X</button>
-        {/*TODO: Seperate this out into another component*/}
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Task</Modal.Title>
@@ -51,7 +50,7 @@ class Task extends Component {
           </Modal.Body>
           <Modal.Footer>
             <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>
-            <button className='btn-link' onClick={this.close}>No</button>
+            <button className='btn btn-default' onClick={this.close}>No</button>
           </Modal.Footer>
         </Modal>
       </li>

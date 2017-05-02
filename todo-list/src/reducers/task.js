@@ -3,7 +3,7 @@ import * as TaskActionTypes from '../actiontypes/task';
 // TODO add id key for tasks and remove any references to index positions
 const initialState = {
   tasks: [
-    { name: 'Walk Dog', complete: false},
+    { name: 'Walk Dog', complete: false },
     { name: 'Buy Groceries', complete: true },
     { name: 'Pay Bills', complete: true },
     { name: 'Call Parents', complete: false },

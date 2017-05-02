@@ -57,6 +57,7 @@ export default function Task(state=initialState, action) {
 
     case TaskActionTypes.FILTER_TASKS: {
       const selectedFilter = action.filter;
+      console.log('selected ', selectedFilter);
       return {
         ...state,
         selectedFilter

@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
     onSubmit = e => {
       if(e) e.preventDefault();
       if(this.state.name.trim() === '') {
+        // TODO: use react-bootstrap Modal here
         alert('Don\'t forget to type in a task name.');
         return;
       }

@@ -41,16 +41,17 @@ class Task extends Component {
         />
         <span className={isComplete}>{this.props.name}</span>
         <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>X</button>
+        {/*TODO: Seperate this out into another component*/}
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Delete Task</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Testing...
+            Are you sure you want to delete {this.props.name}?
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={this.props.removeTask}>Yes</button>
-            <button onClick={this.close}>No</button>
+            <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>
+            <button className='btn-link' onClick={this.close}>No</button>
           </Modal.Footer>
         </Modal>
       </li>

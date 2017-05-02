@@ -13,10 +13,17 @@ class App extends Component {
     tasks: PropTypes.array.isRequired
   };
 
-  // TODO seperate lists/views for complete/incomplete/all
-  
   render() {
     const { addTask, filterTasks, removeTask, selectedFilter, tasks, toggleCompletion } = this.props;
+    let filteredTasks = tasks.filter(task => task);
+
+    if(selectedFilter === 'Incomplete') {
+      filteredTasks = tasks.filter(task=> task.complete === false);
+    }
+
+    if(selectedFilter === 'Complete') {
+      filteredTasks = tasks.filter(task=> task.complete);
+    }
 
     return (
       <div>
@@ -24,10 +31,10 @@ class App extends Component {
           <h1>To Do List</h1>
           <TaskFilter filterTasks={filterTasks} selectedFilter={selectedFilter}/>
           <ul className="list-group">
-        {/*TODO: Assign uniqueKey in the reducer filter through the tasks here based off of the selected filter*/}
           {
-            tasks.map((task, index)=> {
+            filteredTasks.map((task)=> {
               const uniqueKey = uuid.v4();
+              const index = tasks.indexOf(task);
               return (
                 <Task 
                   name={task.name}

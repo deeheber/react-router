@@ -1,20 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 
-const TaskFilter = props => {
-  const { filterTasks, selectedFilter } = props;
+class TaskFilter extends Component {
+  static propTypes = {
+    filterTasks: PropTypes.func.isRequired,
+    selectedFilter: PropTypes.string.isRequired
+  };
+
+  state = {
+    options: [
+      { text: 'All'},
+      { text: 'Incomplete'},
+      { text: 'Complete'}
+    ],
+    activeButton: 0
+  };
+
+  changeFilter = (text, index) => {
+    // dispatch the new view
+    this.props.filterTasks(text);
+    // mark active button
+    this.setState({
+      activeButton: index
+    });
+  };
+
+  render() {
+    const { filterTasks, selectedFilter } = this.props;
+    return (
+      <div className="btn-group">
+        {
+          this.state.options.map((option, index) => {
+            const uniqueKey = uuid.v4();
+            const isActive = index === this.state.activeButton ? true : false;
+            return (
+              <ViewButton 
+                key={uniqueKey} 
+                text={option.text}
+                active={isActive}
+                changeView={() => this.changeFilter(option.text, index)}
+              />
+            );
+          })
+        }
+      </div>
+    );
+  }
+} 
+
+const ViewButton = props => {
+  const classes = props.active ? 'btn btn-default active' : 'btn btn-default';
   return (
-    <div>
-      <label className="radio-inline"><input type="radio" checked={selectedFilter === 'All'} name="taskFilter" value="All" onChange={(e) => filterTasks(e.target.value)}/>All</label>
-      <label className="radio-inline"><input type="radio" checked={selectedFilter === 'Incomplete'} name="taskFilter" value="Incomplete" onChange={(e) => filterTasks(e.target.value)}/>Incomplete</label>
-      <label className="radio-inline"><input type="radio" checked={selectedFilter === 'Complete'} name="taskFilter" value="Complete" onChange={(e) => filterTasks(e.target.value)}/>Complete</label>
-    </div>
+    <button className={classes} onClick={props.changeView}>{props.text}</button>
   );
 };
-
-TaskFilter.propTypes = {
-  filterTasks: PropTypes.func.isRequired,
-  selectedFilter: PropTypes.string.isRequired
-}
 
 export default TaskFilter;

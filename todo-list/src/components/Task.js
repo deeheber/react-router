@@ -46,7 +46,7 @@ class Task extends Component {
             <Modal.Title>Delete Task</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure you want to delete {this.props.name}?
+            Are you sure you want to delete {this.props.name}? It is not marked complete.
           </Modal.Body>
           <Modal.Footer>
             <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>

@@ -27,3 +27,11 @@ export const filterTasks = filter => {
     filter
   }
 }
+
+export const updateTask = (data, index) => {
+  return {
+    type: TaskActionTypes.UPDATE_TASK,
+    data,
+    index
+  }
+}

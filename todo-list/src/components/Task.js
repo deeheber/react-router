@@ -11,18 +11,31 @@ class Task extends Component {
   };
 
   state = {
-    showModal: false
+    showDeleteConfirm: false,
+    showEdit: false
   }
 
-  open = () => {
+  openDeleteConfirm = () => {
     this.setState({
-      showModal: true
+      showDeleteConfirm: true
     });
   };
 
-  close = () => {
+  closeDeleteConfirm = () => {
     this.setState({
-      showModal: false
+      showDeleteConfirm: false
+    });
+  }
+
+  openEdit = () => {
+    this.setState({
+      showEdit: true
+    });
+  };
+
+  closeEdit = () => {
+    this.setState({
+      showEdit: false
     });
   }
 
@@ -30,7 +43,7 @@ class Task extends Component {
     let isComplete;
     this.props.complete ? isComplete = 'complete' : isComplete = '';
 
-    let handleDelete = this.props.complete ?  this.props.removeTask : this.open;
+    let handleDelete = this.props.complete ?  this.props.removeTask : this.openDeleteConfirm;
 
     return(
       <li className="list-group-item">
@@ -40,8 +53,10 @@ class Task extends Component {
           onChange={this.props.toggleCompletion}
         />
         <span className={isComplete}>{this.props.name}</span>
-        <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>X</button>
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>Delete</button>
+        <button className="btn btn-success pull-right btn-xs" onClick={this.openEdit}>Edit</button>
+        {/*delete confirm*/}
+        <Modal show={this.state.showDeleteConfirm} onHide={this.closeDeleteConfirm}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Task</Modal.Title>
           </Modal.Header>
@@ -50,7 +65,21 @@ class Task extends Component {
           </Modal.Body>
           <Modal.Footer>
             <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>
-            <button className='btn btn-default' onClick={this.close}>No</button>
+            <button className='btn btn-default' onClick={this.closeDeleteConfirm}>No</button>
+          </Modal.Footer>
+        </Modal>
+        {/*edit*/}
+        <Modal show={this.state.showEdit} onHide={this.closeEdit}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Task</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Some form will go here
+            hahaha
+          </Modal.Body>
+          <Modal.Footer>
+            <button className='btn btn-success'>Submit</button>
+            <button className='btn btn-default' onClick={this.closeEdit}>Cancel</button>
           </Modal.Footer>
         </Modal>
       </li>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Modal } from 'react-bootstrap';
 
  class AddTaskForm extends Component {
     static propTypes = {
@@ -7,7 +8,8 @@ import PropTypes from 'prop-types';
     }
 
     state = {
-      name: ''
+      name: '',
+      showModal: false
     }
 
     updateTaskName = e => {
@@ -18,12 +20,18 @@ import PropTypes from 'prop-types';
     onSubmit = e => {
       if(e) e.preventDefault();
       if(this.state.name.trim() === '') {
-        alert('Don\'t forget to type in a task name.');
+        this.setState({ showModal: true });
         return;
       }
       this.props.addTask(this.state.name);
       this.setState({ name: '' });
     }
+
+  closeModal = () => {
+    this.setState({
+      showModal: false
+    });
+  }
 
     render() {
       return (
@@ -38,6 +46,17 @@ import PropTypes from 'prop-types';
               />
               <input className="btn btn-success btn-md pull-right" type="submit" value="Add" />
           </form>
+          <Modal show={this.state.showModal} onHide={this.closeModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add Task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Don't forget to add a name to your task.
+            </Modal.Body>
+            <Modal.Footer>
+              <button className='btn btn-default' onClick={this.closeModal}>Ok</button>
+            </Modal.Footer>
+          </Modal>
         </div>
       );
     }

@@ -10,23 +10,38 @@ class Task extends Component {
     name: PropTypes.string.isRequired,
     complete: PropTypes.bool.isRequired,
     removeTask: PropTypes.func.isRequired,
-    toggleCompletion: PropTypes.func.isRequired
+    toggleCompletion: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    updateTask: PropTypes.func.isRequired
   };
 
   state = {
+    formName: '',
     showDeleteConfirm: false,
     showEdit: false
   }
 
-  openDeleteConfirm = () => {
+  handleNameChange = e => {
     this.setState({
-      showDeleteConfirm: true
-    });
-  };
+      formName: e.target.value
+    })
+  }
 
-  closeDeleteConfirm = () => {
+  handleSubmit = () => {
+    const index = this.props.index;
+    const newName = 
+      this.state.formName.trim() === '' 
+      ? this.props.name 
+      : this.state.formName.trim()
+    const data = {
+      name: newName
+    };
+
+    this.props.updateTask(index, data);
+
     this.setState({
-      showDeleteConfirm: false
+      formName: '',
+      showEdit: false
     });
   }
 
@@ -39,6 +54,18 @@ class Task extends Component {
   closeEdit = () => {
     this.setState({
       showEdit: false
+    });
+  }
+
+  openDeleteConfirm = () => {
+    this.setState({
+      showDeleteConfirm: true
+    });
+  };
+
+  closeDeleteConfirm = () => {
+    this.setState({
+      showDeleteConfirm: false
     });
   }
 
@@ -64,12 +91,16 @@ class Task extends Component {
             hide={() => this.closeDeleteConfirm()} 
             name={this.props.name} 
             removeTask={this.props.removeTask}
+            onNameChange={e => {this.handleNameChange(e)}}
           />
         </Modal>
 
         <Modal show={this.state.showEdit} onHide={this.closeEdit}>
           <EditModal 
+            onUpdateName={e => this.handleNameChange(e)}
             hide={() => this.closeEdit()}
+            name={this.props.name}
+            submit={() => {this.handleSubmit()}}
           />
         </Modal>
       </li>

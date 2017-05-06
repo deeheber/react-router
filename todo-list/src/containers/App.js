@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   render() {
-    const { addTask, filterTasks, removeTask, selectedFilter, tasks, toggleCompletion } = this.props;
+    const { addTask, filterTasks, removeTask, selectedFilter, tasks, toggleCompletion, updateTask } = this.props;
     let filteredTasks = tasks.filter(task => task);
 
     if(selectedFilter === 'Incomplete') {
@@ -40,8 +40,10 @@ class App extends Component {
                   name={task.name}
                   key={uniqueKey}
                   complete={task.complete}
+                  index={index}
                   removeTask={() => removeTask(index)}
                   toggleCompletion={() => toggleCompletion(index)}
+                  updateTask={(index, data) => updateTask(index, data)}
                 />
               );
             })
@@ -69,6 +71,9 @@ const mapDispatchToProps = dispatch => ({
   toggleCompletion: index => {
     dispatch(TaskActionCreators.toggleComplete(index));
   },
+  updateTask: (index, data) => {
+    dispatch(TaskActionCreators.updateTask(index, data));
+  } ,
   filterTasks: filter => {
     dispatch(TaskActionCreators.filterTasks(filter));
   }

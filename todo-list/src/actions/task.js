@@ -28,10 +28,10 @@ export const filterTasks = filter => {
   }
 }
 
-export const updateTask = (data, index) => {
+export const updateTask = (index, data) => {
   return {
     type: TaskActionTypes.UPDATE_TASK,
-    data,
-    index
+    index,
+    data
   }
 }

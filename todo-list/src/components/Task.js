@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
 import DeleteConfirmModal from './DeleteConfirmModal';
+import EditModal from './EditModal';
 
 class Task extends Component {
   staticProptypes = {
@@ -66,19 +67,10 @@ class Task extends Component {
           />
         </Modal>
 
-        {/*edit*/}
         <Modal show={this.state.showEdit} onHide={this.closeEdit}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Task</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Some form will go here
-            hahaha
-          </Modal.Body>
-          <Modal.Footer>
-            <button className='btn btn-success'>Submit</button>
-            <button className='btn btn-default' onClick={this.closeEdit}>Cancel</button>
-          </Modal.Footer>
+          <EditModal 
+            hide={() => this.closeEdit()}
+          />
         </Modal>
       </li>
     );

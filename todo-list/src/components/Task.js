@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
+import DeleteConfirmModal from './DeleteConfirmModal';
+
 class Task extends Component {
   staticProptypes = {
     name: PropTypes.string.isRequired,
@@ -55,19 +57,15 @@ class Task extends Component {
         <span className={isComplete}>{this.props.name}</span>
         <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>Delete</button>
         <button className="btn btn-success pull-right btn-xs" onClick={this.openEdit}>Edit</button>
-        {/*delete confirm*/}
+
         <Modal show={this.state.showDeleteConfirm} onHide={this.closeDeleteConfirm}>
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Task</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to delete {this.props.name}? It is not marked complete.
-          </Modal.Body>
-          <Modal.Footer>
-            <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>
-            <button className='btn btn-default' onClick={this.closeDeleteConfirm}>No</button>
-          </Modal.Footer>
+          <DeleteConfirmModal 
+            hide={() => this.closeDeleteConfirm()} 
+            name={this.props.name} 
+            removeTask={this.props.removeTask}
+          />
         </Modal>
+
         {/*edit*/}
         <Modal show={this.state.showEdit} onHide={this.closeEdit}>
           <Modal.Header closeButton>

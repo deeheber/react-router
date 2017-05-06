@@ -1,6 +1,6 @@
 # To do list
 
-The classic todo list approach to experimenting with a new front end framework. The user has the ability to view tasks, add new tasks, delete tasks, and toggle the competion of tasks. Built using react and redux.
+The classic todo list approach to experimenting with a new front end framework. The user has the ability to create, read, update, delete, and toggle completion of each task. Built using react and redux.
 
 Inline `// TODO` comments denote future features which may or may not be coming soon.
 

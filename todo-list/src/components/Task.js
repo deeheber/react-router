@@ -2,27 +2,70 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
+import DeleteConfirmModal from './DeleteConfirmModal';
+import EditModal from './EditModal';
+
 class Task extends Component {
   staticProptypes = {
     name: PropTypes.string.isRequired,
     complete: PropTypes.bool.isRequired,
     removeTask: PropTypes.func.isRequired,
-    toggleCompletion: PropTypes.func.isRequired
+    toggleCompletion: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    updateTask: PropTypes.func.isRequired
   };
 
   state = {
-    showModal: false
+    formName: '',
+    showDeleteConfirm: false,
+    showEdit: false
   }
 
-  open = () => {
+  handleNameChange = e => {
     this.setState({
-      showModal: true
+      formName: e.target.value
+    })
+  }
+
+  handleSubmit = () => {
+    const index = this.props.index;
+    const newName = 
+      this.state.formName.trim() === '' 
+      ? this.props.name 
+      : this.state.formName.trim()
+    const data = {
+      name: newName
+    };
+
+    this.props.updateTask(index, data);
+
+    this.setState({
+      formName: '',
+      showEdit: false
+    });
+  }
+
+  openEdit = () => {
+    this.setState({
+      showEdit: true
     });
   };
 
-  close = () => {
+  closeEdit = () => {
     this.setState({
-      showModal: false
+      showEdit: false
+    });
+  }
+
+  openDeleteConfirm = () => {
+    this.setState({
+      showDeleteConfirm: true
+    });
+  };
+
+  closeDeleteConfirm = () => {
+    this.setState({
+      showDeleteConfirm: false
     });
   }
 
@@ -30,7 +73,7 @@ class Task extends Component {
     let isComplete;
     this.props.complete ? isComplete = 'complete' : isComplete = '';
 
-    let handleDelete = this.props.complete ?  this.props.removeTask : this.open;
+    let handleDelete = this.props.complete ?  this.props.removeTask : this.openDeleteConfirm;
 
     return(
       <li className="list-group-item">
@@ -40,18 +83,25 @@ class Task extends Component {
           onChange={this.props.toggleCompletion}
         />
         <span className={isComplete}>{this.props.name}</span>
-        <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>X</button>
-        <Modal show={this.state.showModal} onHide={this.close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Task</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to delete {this.props.name}?
-          </Modal.Body>
-          <Modal.Footer>
-            <button className='btn btn-danger' onClick={this.props.removeTask}>Yes</button>
-            <button className='btn btn-default' onClick={this.close}>No</button>
-          </Modal.Footer>
+        <button className="btn btn-danger pull-right btn-xs" onClick={handleDelete}>Delete</button>
+        <button className="btn btn-success pull-right btn-xs" onClick={this.openEdit}>Edit</button>
+
+        <Modal show={this.state.showDeleteConfirm} onHide={this.closeDeleteConfirm}>
+          <DeleteConfirmModal 
+            hide={() => this.closeDeleteConfirm()} 
+            name={this.props.name} 
+            removeTask={this.props.removeTask}
+            onNameChange={e => {this.handleNameChange(e)}}
+          />
+        </Modal>
+
+        <Modal show={this.state.showEdit} onHide={this.closeEdit}>
+          <EditModal 
+            onUpdateName={e => this.handleNameChange(e)}
+            hide={() => this.closeEdit()}
+            name={this.props.name}
+            submit={() => {this.handleSubmit()}}
+          />
         </Modal>
       </li>
     );

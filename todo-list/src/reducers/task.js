@@ -63,6 +63,21 @@ export default function Task(state=initialState, action) {
       }
     }
 
+    case TaskActionTypes.UPDATE_TASK: {
+      const originalData = state.tasks[action.index];
+      const newData = action.data;
+      const updatedTask = Object.assign({}, originalData, newData);
+      const taskList = [
+        ...state.tasks.slice(0, action.index),
+        updatedTask,
+        ...state.tasks.slice(action.index + 1)
+      ];
+      return {
+        ...state,
+        tasks: taskList
+      }
+    }
+
     default:
       return state;
   }

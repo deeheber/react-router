@@ -1,4 +1,5 @@
 import * as TaskActionTypes from '../actiontypes/task';
+import uuid from 'uuid';
 
 // TODO fix reducer functions to take an id instead of an index
 const initialState = {
@@ -16,10 +17,11 @@ export default function Task(state=initialState, action) {
   switch(action.type) {
 
     case TaskActionTypes.ADD_TASK: {
+      const id = uuid.v4();
       const addTaskList = [
         ...state.tasks,
         {
-          name: action.name, complete: false
+          name: action.name, complete: false, id
         }
       ];
       return {
@@ -29,9 +31,12 @@ export default function Task(state=initialState, action) {
     }
 
     case TaskActionTypes.REMOVE_TASK: {
+      const index = state.tasks.findIndex(task => {
+        return task.id === action.id;
+      });
       const removeTaskList = [
-        ...state.tasks.slice(0, action.index),
-        ...state.tasks.slice(action.index + 1)
+        ...state.tasks.slice(0, index),
+        ...state.tasks.slice(index + 1)
       ]
       return {
         ...state,
@@ -40,14 +45,17 @@ export default function Task(state=initialState, action) {
     }
 
     case TaskActionTypes.TOGGLE_COMPLETE: {
-      const selectedTask = state.tasks[action.index];
+      const index = state.tasks.findIndex(task => {
+        return task.id === action.id;
+      });
+      const selectedTask = state.tasks[index];
       const updatedTask = Object.assign({}, selectedTask, {
         complete: !selectedTask.complete
       });
       const toggleTasklist = [
-        ...state.tasks.slice(0, action.index),
+        ...state.tasks.slice(0, index),
         updatedTask,
-        ...state.tasks.slice(action.index + 1)
+        ...state.tasks.slice(index + 1)
       ];
       return {
         ...state,
@@ -64,13 +72,16 @@ export default function Task(state=initialState, action) {
     }
 
     case TaskActionTypes.UPDATE_TASK: {
-      const originalData = state.tasks[action.index];
+      const index = state.tasks.findIndex(task => {
+        return task.id === action.id;
+      });
+      const originalData = state.tasks[index];
       const newData = action.data;
       const updatedTask = Object.assign({}, originalData, newData);
       const taskList = [
-        ...state.tasks.slice(0, action.index),
+        ...state.tasks.slice(0, index),
         updatedTask,
-        ...state.tasks.slice(action.index + 1)
+        ...state.tasks.slice(index + 1)
       ];
       return {
         ...state,

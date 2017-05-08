@@ -1,7 +1,6 @@
 import * as TaskActionTypes from '../actiontypes/task';
 import uuid from 'uuid';
 
-// TODO fix reducer functions to take an id instead of an index
 const initialState = {
   tasks: [
     { name: 'Walk Dog', complete: false, id: 1 },

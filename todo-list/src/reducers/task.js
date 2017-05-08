@@ -1,13 +1,13 @@
 import * as TaskActionTypes from '../actiontypes/task';
 
-// TODO add id key for tasks and remove any references to index positions
+// TODO fix reducer functions to take an id instead of an index
 const initialState = {
   tasks: [
-    { name: 'Walk Dog', complete: false },
-    { name: 'Buy Groceries', complete: true },
-    { name: 'Pay Bills', complete: true },
-    { name: 'Call Parents', complete: false },
-    { name: 'Mail Letter', complete: false }
+    { name: 'Walk Dog', complete: false, id: 1 },
+    { name: 'Buy Groceries', complete: true, id: 2 },
+    { name: 'Pay Bills', complete: true, id: 3 },
+    { name: 'Call Parents', complete: false, id: 4 },
+    { name: 'Mail Letter', complete: false, id: 5 }
   ],
   selectedFilter: 'All'
 }

@@ -11,7 +11,7 @@ class Task extends Component {
     complete: PropTypes.bool.isRequired,
     removeTask: PropTypes.func.isRequired,
     toggleCompletion: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
     updateTask: PropTypes.func.isRequired
   };
 
@@ -28,7 +28,7 @@ class Task extends Component {
   }
 
   handleSubmit = () => {
-    const index = this.props.index;
+    const id = this.props.id;
     const newName = 
       this.state.formName.trim() === '' 
       ? this.props.name 
@@ -37,7 +37,7 @@ class Task extends Component {
       name: newName
     };
 
-    this.props.updateTask(index, data);
+    this.props.updateTask(id, data);
 
     this.setState({
       formName: '',

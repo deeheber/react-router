@@ -34,16 +34,16 @@ class App extends Component {
           {
             filteredTasks.map((task)=> {
               const uniqueKey = uuid.v4();
-              const index = tasks.indexOf(task);
+              const id = task.id;
               return (
                 <Task 
                   name={task.name}
                   key={uniqueKey}
                   complete={task.complete}
-                  index={index}
-                  removeTask={() => removeTask(index)}
-                  toggleCompletion={() => toggleCompletion(index)}
-                  updateTask={(index, data) => updateTask(index, data)}
+                  id={id}
+                  removeTask={() => removeTask(id)}
+                  toggleCompletion={() => toggleCompletion(id)}
+                  updateTask={(id, data) => updateTask(id, data)}
                 />
               );
             })
@@ -65,14 +65,14 @@ const mapDispatchToProps = dispatch => ({
   addTask: name => {
     dispatch(TaskActionCreators.addTask(name));
   },
-  removeTask: index => {
-    dispatch(TaskActionCreators.removeTask(index));
+  removeTask: id => {
+    dispatch(TaskActionCreators.removeTask(id));
   },
-  toggleCompletion: index => {
-    dispatch(TaskActionCreators.toggleComplete(index));
+  toggleCompletion: id => {
+    dispatch(TaskActionCreators.toggleComplete(id));
   },
-  updateTask: (index, data) => {
-    dispatch(TaskActionCreators.updateTask(index, data));
+  updateTask: (id, data) => {
+    dispatch(TaskActionCreators.updateTask(id, data));
   } ,
   filterTasks: filter => {
     dispatch(TaskActionCreators.filterTasks(filter));

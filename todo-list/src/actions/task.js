@@ -7,17 +7,17 @@ export const addTask = name => {
   };
 };
 
-export const removeTask = index => {
+export const removeTask = id => {
   return {
     type: TaskActionTypes.REMOVE_TASK,
-    index
+    id
   };
 };
 
-export const toggleComplete = index => {
+export const toggleComplete = id => {
   return {
     type: TaskActionTypes.TOGGLE_COMPLETE,
-    index
+    id
   }
 }
 
@@ -28,10 +28,10 @@ export const filterTasks = filter => {
   }
 }
 
-export const updateTask = (index, data) => {
+export const updateTask = (id, data) => {
   return {
     type: TaskActionTypes.UPDATE_TASK,
-    index,
+    id,
     data
   }
 }

@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import './app.css';
-import App from './src/containers/App';
-import TaskReducer from './src/reducers/task';
+import App from './containers/App';
+import TaskReducer from './reducers/task';
 
 const store = createStore(
   TaskReducer,

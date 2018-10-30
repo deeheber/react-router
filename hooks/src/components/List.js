@@ -1,17 +1,18 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
 import Item from './Item';
 
-export default function List(props) {
-  const listJSX =  props.list.map((item, index) => (
+export default function List (props) {
+  const { list, onToggleComplete, onDelete } = props;
+
+  const listJSX = list.map((item, index) => (
     <Item
       key={index}
       id={index}
       text={item.text}
       complete={item.complete}
-      onCheckBoxChange={props.onCheckBoxChange}
-      onDelete={props.onDelete}
+      onToggleComplete={onToggleComplete}
+      onDelete={onDelete}
     />
   ));
 
@@ -31,6 +32,6 @@ List.propTypes = {
     text: PropTypes.string.isRequired,
     complete: PropTypes.bool
   })).isRequired,
-  onCheckBoxChange: PropTypes.func.isRequired,
+  onToggleComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
 };

@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Item(props) {
+export default function Item (props) {
+  const { text, complete, onToggleComplete, onDelete } = props;
+
   return (
     <div>
-      {props.text}
+      {text}
       <input
         type='checkbox'
-        checked={props.complete}
-        onChange={id => props.onCheckBoxChange(props.id)}
+        checked={complete}
+        onChange={id => onToggleComplete(props.id)}
       />
-      <button onClick={id => props.onDelete(props.id)}>X</button>
+      <button onClick={id => onDelete(props.id)}>X</button>
     </div>
   );
 }
 
 Item.propTypes = {
   id: PropTypes.number.isRequired,
-  onCheckBoxChange: PropTypes.func.isRequired,
+  onToggleComplete: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };

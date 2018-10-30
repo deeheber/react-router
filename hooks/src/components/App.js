@@ -4,7 +4,7 @@ import AddForm from './AddForm';
 import List from './List';
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -12,7 +12,7 @@ class App extends Component {
         { text: 'Go grocery shopping', complete: false },
         { text: 'Feed cats', complete: false },
         { text: 'Water plants', complete: true },
-        { text: 'Work out', complete: false}
+        { text: 'Work out', complete: false }
       ],
       value: ''
     };
@@ -23,13 +23,13 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange (event) {
     this.setState({
       value: event.target.value
     });
   }
 
-  handleCheckbox(index) {
+  handleCheckbox (index) {
     const selectedToDo = this.state.list[index];
     const updatedToDo = Object.assign({}, selectedToDo, {
       complete: !selectedToDo.complete
@@ -45,7 +45,7 @@ class App extends Component {
     });
   }
 
-  handleDelete(index) {
+  handleDelete (index) {
     const updatedList = [
       ...this.state.list.slice(0, index),
       ...this.state.list.slice(index + 1)
@@ -56,7 +56,7 @@ class App extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit (event) {
     event.preventDefault();
 
     this.setState({
@@ -65,7 +65,7 @@ class App extends Component {
     });
   }
 
-  render() {
+  render () {
     return (
       <Fragment>
         <div>

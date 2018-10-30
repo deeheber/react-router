@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Item from './Item';
 
-export default function List(props) {
-  const listJSX =  props.list.map((item, index) => (
+export default function List (props) {
+  const listJSX = props.list.map((item, index) => (
     <Item
       key={index}
       id={index}

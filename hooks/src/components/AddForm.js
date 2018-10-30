@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function AddForm(props) {
+export default function AddForm (props) {
   return (
     <form onSubmit={props.onSubmit}>
       <input onChange={props.onChange} value={props.value} />

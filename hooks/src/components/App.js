@@ -1,90 +1,68 @@
-import React, { Component, Fragment } from 'react';
-
+import React, { Fragment, useState } from 'react';
 import AddForm from './AddForm';
 import List from './List';
 
-class App extends Component {
-  constructor (props) {
-    super(props);
+export default function App () {
+  const [list, setList] = useState([
+    { text: 'Go grocery shopping', complete: false },
+    { text: 'Feed cats', complete: false },
+    { text: 'Water plants', complete: true },
+    { text: 'Work out', complete: false }
+  ]);
 
-    this.state = {
-      list: [
-        { text: 'Go grocery shopping', complete: false },
-        { text: 'Feed cats', complete: false },
-        { text: 'Water plants', complete: true },
-        { text: 'Work out', complete: false }
-      ],
-      value: ''
-    };
+  const [value, setValue] = useState('');
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleCheckbox = this.handleCheckbox.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function handleChange (event) {
+    setValue(event.target.value);
   }
 
-  handleChange (event) {
-    this.setState({
-      value: event.target.value
-    });
-  }
-
-  handleCheckbox (index) {
-    const selectedToDo = this.state.list[index];
+  function handleToggleComplete (index) {
+    const selectedToDo = list[index];
     const updatedToDo = Object.assign({}, selectedToDo, {
       complete: !selectedToDo.complete
     });
     const updatedList = [
-      ...this.state.list.slice(0, index),
+      ...list.slice(0, index),
       updatedToDo,
-      ...this.state.list.slice(index + 1)
+      ...list.slice(index + 1)
     ];
 
-    this.setState({
-      list: updatedList
-    });
+    setList(updatedList);
   }
 
-  handleDelete (index) {
+  function handleDelete (index) {
     const updatedList = [
-      ...this.state.list.slice(0, index),
-      ...this.state.list.slice(index + 1)
+      ...list.slice(0, index),
+      ...list.slice(index + 1)
     ];
 
-    this.setState({
-      list: updatedList
-    });
+    setList(updatedList);
   }
 
-  handleSubmit (event) {
+  function handleAdd (event) {
     event.preventDefault();
+    if (!value) return;
 
-    this.setState({
-      list: [{ text: this.state.value, complete: false }, ...this.state.list],
-      value: ''
-    });
+    setList([{ text: value, complete: false }, ...list]);
+    setValue('');
   }
 
-  render () {
-    return (
-      <Fragment>
-        <div>
-          <AddForm
-            value={this.state.value}
-            onChange={this.handleChange}
-            onSubmit={this.handleSubmit}
-          />
-        </div>
-        <div>
-          <List
-            onCheckBoxChange={index => this.handleCheckbox(index)}
-            onDelete={index => this.handleDelete(index)}
-            list={this.state.list}
-          />
-        </div>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <div>
+        <AddForm
+          value={value}
+          onChange={handleChange}
+          onAdd={handleAdd}
+        />
+      </div>
+      <div>
+        <List
+          onToggleComplete={index => handleToggleComplete(index)}
+          onDelete={index => handleDelete(index)}
+          list={list}
+        />
+      </div>
+    </Fragment>
+  );
 }
-
-export default App;

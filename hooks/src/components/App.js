@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import AddForm from './AddForm';
-import Item from './Item';
+import List from './List';
 
 class App extends Component {
   constructor(props) {
@@ -9,15 +9,16 @@ class App extends Component {
 
     this.state = {
       list: [
-        'Go grocery shopping',
-        'Feed cats',
-        'Water plants',
-        'Work out'
+        { text: 'Go grocery shopping', complete: false },
+        { text: 'Feed cats', complete: false },
+        { text: 'Water plants', complete: true },
+        { text: 'Work out', complete: false}
       ],
       value: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -27,11 +28,27 @@ class App extends Component {
     });
   }
 
+  handleCheckbox(index) {
+    const selectedToDo = this.state.list[index];
+    const updatedToDo = Object.assign({}, selectedToDo, {
+      complete: !selectedToDo.complete
+    });
+    const updatedList = [
+      ...this.state.list.slice(0, index),
+      updatedToDo,
+      ...this.state.list.slice(index + 1)
+    ];
+
+    this.setState({
+      list: updatedList
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
     this.setState({
-      list: [this.state.value, ...this.state.list],
+      list: [{ text: this.state.value, complete: false }, ...this.state.list],
       value: ''
     });
   }
@@ -40,21 +57,17 @@ class App extends Component {
     return (
       <Fragment>
         <div>
-          <AddForm 
+          <AddForm
             value={this.state.value}
             onChange={this.handleChange}
             onSubmit={this.handleSubmit}
           />
         </div>
         <div>
-          {
-            this.state.list.map((item, index) => (
-              <Item 
-                key={index}
-                text={item} 
-              />
-            ))
-          }
+          <List
+            onCheckBoxChange={index => this.handleCheckbox(index)}
+            list={this.state.list}
+          />
         </div>
       </Fragment>
     );

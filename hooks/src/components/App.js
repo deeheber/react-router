@@ -19,6 +19,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckbox = this.handleCheckbox.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -36,6 +37,17 @@ class App extends Component {
     const updatedList = [
       ...this.state.list.slice(0, index),
       updatedToDo,
+      ...this.state.list.slice(index + 1)
+    ];
+
+    this.setState({
+      list: updatedList
+    });
+  }
+
+  handleDelete(index) {
+    const updatedList = [
+      ...this.state.list.slice(0, index),
       ...this.state.list.slice(index + 1)
     ];
 
@@ -66,6 +78,7 @@ class App extends Component {
         <div>
           <List
             onCheckBoxChange={index => this.handleCheckbox(index)}
+            onDelete={index => this.handleDelete(index)}
             list={this.state.list}
           />
         </div>

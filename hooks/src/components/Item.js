@@ -10,6 +10,7 @@ export default function Item(props) {
         checked={props.complete}
         onChange={id => props.onCheckBoxChange(props.id)}
       />
+      <button onClick={id => props.onDelete(props.id)}>X</button>
     </div>
   );
 }
@@ -17,5 +18,6 @@ export default function Item(props) {
 Item.propTypes = {
   id: PropTypes.number.isRequired,
   onCheckBoxChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired
 };
